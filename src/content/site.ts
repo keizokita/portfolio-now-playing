@@ -64,9 +64,7 @@ export const site = {
   // A descrição daqui também substitui a do GitHub quando o nome do repositório bate.
   fallbackProjects: [
     { name: "watchlytics", description: "Descoberta de filmes, séries e animes por swipe, com match entre amigos", stack: ["TypeScript", "React"], url: "https://github.com/keizokita/watchlytics" },
-    { name: "watchlytics-application-backend", description: "Back-end de análise e descoberta de filmes sobre a API do TMDB", stack: ["Java", "Spring Boot"], url: "https://github.com/keizokita/watchlytics-application-backend" },
-    { name: "task-manager-backend", description: "Gestão de tarefas para times de desenvolvimento, com prioridades e progresso", stack: ["Java", "Spring Boot"], url: "https://github.com/keizokita/task-manager-backend" },
-    { name: "anymarket-extension", description: "Extensão do VS Code que ajuda a seguir os padrões do front-end da Anymarket", stack: ["VS Code", "TypeScript"], url: "https://github.com/keizokita/anymarket-extension" },
     { name: "tcc-project-back", description: "Back-end do trabalho de conclusão de curso em Sistemas de Informação", stack: ["Java", "Spring Boot"], url: "https://github.com/keizokita/tcc-project-back" },
+    { name: "portfolio-now-playing", description: "Este portfólio: um player de música com os projetos do GitHub no coverflow", stack: ["TypeScript", "Next.js"], url: "https://github.com/keizokita/portfolio-now-playing" },
   ] satisfies Project[],
 };
