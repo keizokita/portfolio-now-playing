@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+/*
+  Tokens de design. Um único acento (âmbar) em toda a página.
+  Regra de forma: controles e botões = pílula (rounded-full);
+  superfícies = 24px (rounded-surface); capas pequenas = 12px (rounded-thumb).
+*/
+:root {
+  --accent: #e8a33d;
+  --accent-deep: #805a22;
+  --ink: #18181b;
+
+  /* Escuro (padrão) */
+  --bg: #0e0d0c;
+  --surface: rgb(255 255 255 / 0.07);
+  --surface-2: rgb(255 255 255 / 0.12);
+  --line: rgb(255 255 255 / 0.14);
+  --hi: rgb(255 255 255 / 0.18);
+  --text: #f2efe9;
+  --muted: #b5afa5;
+  --solid: #1c1a18;
+  --orb: 0.22;
+  --shadow: rgb(0 0 0 / 0.6);
+  --accent-ink: var(--accent);
+  color-scheme: dark;
+}
+
+/* Claro: segue o sistema quando o visitante não escolheu um tema */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --bg: #ededea;
+    --surface: rgb(255 255 255 / 0.58);
+    --surface-2: rgb(255 255 255 / 0.82);
+    --line: rgb(24 24 27 / 0.12);
+    --hi: rgb(255 255 255 / 0.9);
+    --text: #18181b;
+    --muted: #52525b;
+    --solid: #fafaf8;
+    --orb: 0.2;
+    --shadow: rgb(60 48 30 / 0.22);
+    --accent-ink: var(--accent-deep);
+    color-scheme: light;
+  }
+}
+
+/* Claro: escolhido manualmente pelo botão de tema */
+[data-theme="light"] {
+  --bg: #ededea;
+  --surface: rgb(255 255 255 / 0.58);
+  --surface-2: rgb(255 255 255 / 0.82);
+  --line: rgb(24 24 27 / 0.12);
+  --hi: rgb(255 255 255 / 0.9);
+  --text: #18181b;
+  --muted: #52525b;
+  --solid: #fafaf8;
+  --orb: 0.2;
+  --shadow: rgb(60 48 30 / 0.22);
+  --accent-ink: var(--accent-deep);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-solid: var(--solid);
+  --color-ink: var(--ink);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --font-sans: "Sora Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --radius-surface: 24px;
+  --radius-thumb: 12px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Vidro fosco: aproximação web (backdrop-filter + borda interna + realce).
+   Não é o Liquid Glass oficial da Apple, que só existe nas plataformas Apple. */
+@utility glass {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 var(--hi),
+    0 24px 48px -30px var(--shadow);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: var(--solid);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+.orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(110px);
+  pointer-events: none;
+  background: var(--accent);
+  opacity: var(--orb);
+}
+
+/* Capas de projeto: variam por luminosidade, não por cor (trava de cor única). */
+.cv-a { --cbg: var(--accent); --cfg: var(--ink); }
+.cv-b { --cbg: var(--solid); --cfg: var(--text); }
+.cv-c { --cbg: var(--text); --cfg: var(--bg); }
+
+/* Bento de competências: 7 itens = 7 áreas, sem células vazias. */
+.bento {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas: "f f" "a b" "c d" "e e" "g g";
+}
+@media (min-width: 768px) {
+  .bento {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-areas: "f f a b" "f f c d" "e e g g";
+  }
+}
+
+/* Feedback tátil */
+.press {
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s;
+}
+.press:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -16px var(--shadow); }
+.press:active { transform: scale(0.98); }
+
+.tile { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.tile:hover { transform: translateY(-6px); box-shadow: inset 0 1px 0 var(--hi), 0 30px 50px -28px var(--shadow); }
+
+:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; }
+
+/* Ícones do botão de tema: troca por CSS para não haver diferença entre servidor e navegador */
+.theme-moon { display: none; }
+[data-theme="light"] .theme-sun { display: none; }
+[data-theme="light"] .theme-moon { display: block; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .theme-sun { display: none; }
+  :root:not([data-theme]) .theme-moon { display: block; }
+}
+
+/* Equalizador: comunica estado (tocando ou pausado). */
+.eq { display: inline-flex; align-items: flex-end; gap: 3px; height: 14px; }
+.eq i { display: block; width: 3px; height: 100%; border-radius: 2px; background: var(--accent); transform-origin: bottom; transform: scaleY(0.45); }
+.on-accent .eq i { background: var(--ink); }
+
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes pop { from { opacity: 0; transform: translateY(32px) scale(0.92) rotate(var(--r)); } to { opacity: 1; transform: translateY(0) scale(1) rotate(var(--r)); } }
+@keyframes float { 0%, 100% { transform: translateY(0) rotate(var(--r)); } 50% { transform: translateY(-12px) rotate(calc(var(--r) * -0.5)); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes eq { 0%, 100% { transform: scaleY(0.25); } 50% { transform: scaleY(1); } }
+
+.float-card { transform: rotate(var(--r)); }
+
+/* Todo movimento automático só roda sem "reduzir movimento". */
+@media (prefers-reduced-motion: no-preference) {
+  .rise { animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s) both; }
+  .float-card { animation: pop 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--d) both, float 9s ease-in-out calc(var(--d) + 0.9s) infinite; }
+  .spin-slow { animation: spin 60s linear infinite; }
+  .eq i { animation: eq 1s ease-in-out infinite; }
+  .eq i:nth-child(2) { animation-delay: -0.4s; }
+  .eq i:nth-child(3) { animation-delay: -0.7s; }
+  .eq i:nth-child(4) { animation-delay: -0.2s; }
+  .eq[data-paused="true"] i { animation-play-state: paused; }
+}
