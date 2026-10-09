@@ -35,9 +35,10 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
   const [active, setActive] = useState(0);
   const [userPlaying, setUserPlaying] = useState<boolean | null>(null);
   const [detail, setDetail] = useState<Project | null>(null);
+  const [hovering, setHovering] = useState(false);
   // Autoplay ligado por padrão, desligado com "reduzir movimento" até a pessoa apertar play.
-  // Pausa enquanto a modal de detalhes está aberta.
-  const playing = (userPlaying ?? !reduce) && !detail;
+  // Pausa com a modal aberta e com o mouse sobre as capas, para a capa não trocar no meio do clique.
+  const playing = (userPlaying ?? !reduce) && !detail && !hovering;
 
   // Progresso da "faixa" fica num motion value: anima sem re-renderizar o React.
   const progress = useMotionValue(0);
@@ -89,6 +90,8 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
         aria-roledescription="carrossel"
         aria-label="Capas dos projetos. Use as setas para navegar."
         onKeyDown={onKeyDown}
+        onPointerEnter={(e) => e.pointerType === "mouse" && setHovering(true)}
+        onPointerLeave={() => setHovering(false)}
         className="relative h-[400px] overflow-hidden [perspective:1400px]"
       >
         {projects.map((p, i) => {
@@ -105,7 +108,7 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
               aria-label={a === 0 ? `Ver detalhes de ${p.name}` : `Selecionar ${p.name}`}
               aria-current={a === 0 ? "true" : undefined}
               tabIndex={a === 0 ? 0 : -1}
-              className={`${VARIANTS[i % 3]} absolute left-1/2 top-4 -ml-[130px] flex h-[350px] w-[260px] cursor-pointer flex-col overflow-hidden rounded-surface border border-line bg-surface text-left shadow-[0_30px_50px_-26px_var(--shadow)]`}
+              className={`${VARIANTS[i % 3]} group absolute left-1/2 top-4 -ml-[130px] flex h-[350px] w-[260px] cursor-pointer flex-col overflow-hidden rounded-surface border border-line bg-surface text-left shadow-[0_30px_50px_-26px_var(--shadow)] transition-shadow duration-300 aria-[current=true]:hover:shadow-[0_46px_70px_-28px_var(--shadow)]`}
               style={{ zIndex: 10 - a }}
               initial={false}
               animate={{
@@ -115,10 +118,21 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
                 scale: 1 - a * 0.06,
                 opacity: a === 0 ? 1 : a === 1 ? 0.75 : 0.35,
               }}
+              // Hover (só mouse): a capa central se aproxima; as vizinhas acendem um pouco.
+              whileHover={reduce ? undefined : a === 0 ? { y: -10, scale: 1.03 } : a === 1 ? { y: -4, opacity: 0.9 } : undefined}
               transition={reduce ? { duration: 0 } : SPRING}
             >
               <div className="relative flex h-[260px] w-full items-end overflow-hidden bg-[var(--cbg)] p-5 text-[var(--cfg)]">
                 <VinylRings className="absolute -right-[54px] -top-[54px] size-[230px] opacity-30" />
+                {a === 0 && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-line bg-solid px-3 py-1.5 text-xs font-semibold text-text opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
+                  >
+                    <Info size={14} weight="bold" />
+                    Ver detalhes
+                  </span>
+                )}
                 <span className="relative break-words font-mono text-xl font-bold leading-tight">{p.name}</span>
               </div>
               <div className="flex w-full flex-1 flex-col justify-center gap-1 bg-solid px-5 py-3.5">

@@ -26,7 +26,7 @@ export const site = {
   name: "Leonardo Kita",
   role: "Desenvolvedor full stack",
   // Até 20 palavras (regra da taste-skill para o hero).
-  tagline: "Construo sistemas em Java 17 e Angular e uso IA para modernizar código legado com mais testes.",
+  tagline: "Construo sistemas em Java e Angular e uso IA para modernizar código legado com mais testes.",
   available: true,
   email: "keizokato@gmail.com",
   // Usuário do GitHub. Enquanto for "seu-usuario", a página usa os projetos de exemplo abaixo.
@@ -39,15 +39,15 @@ export const site = {
 
   // Faixas que flutuam ao redor da foto no hero. A primeira vira o card grande do player.
   heroTracks: [
-    { abbr: "J17", name: "Java 17", role: "Linguagem principal" },
+    { abbr: "Jv", name: "Java", role: "Linguagem principal" },
     { abbr: "Ng", name: "Angular", role: "Interfaces" },
     { abbr: "Sb", name: "Spring Boot", role: "APIs REST" },
   ],
 
   featuredSkill: {
-    title: "Java 17 e Angular",
+    title: "Java e Angular",
     description:
-      "Migrei sozinho um sistema fiscal de 12 anos para Java 17 e mais de 60 telas de AngularJS para Angular.",
+      "Migrei sozinho um sistema fiscal de 12 anos para Java e mais de 60 telas de AngularJS para Angular.",
     years: "4 anos de experiência",
   },
 
