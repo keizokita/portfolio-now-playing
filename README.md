@@ -1,6 +1,6 @@
 # Portfólio "Now Playing"
 
-Portfólio pessoal de Leonardo Kita, desenvolvedor full stack (Java 17, Angular e IA no ciclo de desenvolvimento).
+Portfólio pessoal de Leonardo Kita, desenvolvedor full stack (Java, Angular e IA no ciclo de desenvolvimento).
 
 A interface usa a linguagem de um player de música: as competências orbitam a foto como faixas, os projetos do GitHub aparecem num coverflow de capas de álbum e uma barra de player troca de projeto sozinha.
 
