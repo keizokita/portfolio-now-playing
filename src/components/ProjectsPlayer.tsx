@@ -2,9 +2,10 @@
 
 import { useCallback, useEffect, useState, useSyncExternalStore, type KeyboardEvent } from "react";
 import { animate, motion, useMotionValue, useReducedMotion, useTransform } from "motion/react";
-import { GithubLogo, Pause, Play, SkipBack, SkipForward } from "@phosphor-icons/react";
+import { GithubLogo, Info, Pause, Play, SkipBack, SkipForward } from "@phosphor-icons/react";
 import type { Project } from "@/content/site";
 import { Equalizer } from "./Equalizer";
+import { ProjectModal } from "./ProjectModal";
 import { VinylRings } from "./VinylRings";
 
 const TRACK_SECONDS = 6;
@@ -33,8 +34,10 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
   const n = projects.length;
   const [active, setActive] = useState(0);
   const [userPlaying, setUserPlaying] = useState<boolean | null>(null);
+  const [detail, setDetail] = useState<Project | null>(null);
   // Autoplay ligado por padrão, desligado com "reduzir movimento" até a pessoa apertar play.
-  const playing = userPlaying ?? !reduce;
+  // Pausa enquanto a modal de detalhes está aberta.
+  const playing = (userPlaying ?? !reduce) && !detail;
 
   // Progresso da "faixa" fica num motion value: anima sem re-renderizar o React.
   const progress = useMotionValue(0);
@@ -97,8 +100,9 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
             <motion.button
               key={p.name}
               type="button"
-              onClick={() => go(i)}
-              aria-label={`Selecionar ${p.name}`}
+              // Capa central abre os detalhes; as laterais vão para o centro.
+              onClick={() => (a === 0 ? setDetail(p) : go(i))}
+              aria-label={a === 0 ? `Ver detalhes de ${p.name}` : `Selecionar ${p.name}`}
               aria-current={a === 0 ? "true" : undefined}
               tabIndex={a === 0 ? 0 : -1}
               className={`${VARIANTS[i % 3]} absolute left-1/2 top-4 -ml-[130px] flex h-[350px] w-[260px] cursor-pointer flex-col overflow-hidden rounded-surface border border-line bg-surface text-left shadow-[0_30px_50px_-26px_var(--shadow)]`}
@@ -138,7 +142,7 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
           </button>
           <button
             type="button"
-            onClick={() => setUserPlaying(!playing)}
+            onClick={() => setUserPlaying(!(userPlaying ?? !reduce))}
             aria-label={playing ? "Pausar" : "Tocar"}
             className="press grid size-14 place-items-center rounded-full bg-text text-bg"
           >
@@ -177,6 +181,14 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
 
         <div className="flex items-center gap-3">
           <Equalizer paused={!playing} />
+          <button
+            type="button"
+            onClick={() => setDetail(current)}
+            className="press inline-flex h-12 items-center gap-2 whitespace-nowrap rounded-full border border-line bg-surface-2 px-5 text-sm font-semibold"
+          >
+            <Info size={18} weight="bold" aria-hidden="true" />
+            Detalhes
+          </button>
           <a
             href={current.url}
             target="_blank"
@@ -188,6 +200,8 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
           </a>
         </div>
       </div>
+
+      <ProjectModal project={detail} onClose={() => setDetail(null)} />
     </div>
   );
 }

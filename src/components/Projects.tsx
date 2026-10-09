@@ -11,7 +11,7 @@ export async function Projects() {
           Projetos no GitHub
         </h2>
         <p className="text-base leading-relaxed text-muted">
-          Repositórios selecionados. Clique numa capa ou use os controles do player.
+          Repositórios selecionados. Clique na capa central para ver os detalhes de cada projeto.
         </p>
       </Reveal>
       <Reveal>

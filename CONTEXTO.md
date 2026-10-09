@@ -36,12 +36,14 @@ A taste-skill está em `.claude/skills/taste-skill/SKILL.md`. Rode o **Final Pre
 | Arquivo | O que é |
 |---|---|
 | `src/content/site.ts` | **Todo o conteúdo editável**: nome, frase, e-mail, GitHub, LinkedIn, foto, competências, repositórios em destaque |
-| `src/lib/github.ts` | Busca os repositórios na API do GitHub no servidor (`"use cache"` + `cacheLife("hours")`), com dados de exemplo como reserva |
+| `src/lib/github.ts` | Busca os repositórios (com README, linguagens e commits) na API do GitHub no servidor (`"use cache"` + `cacheLife("hours")`), com dados de exemplo como reserva |
 | `src/app/globals.css` | Tokens de cor (claro e escuro), utilitário `glass`, bento, animações |
 | `src/app/layout.tsx` | Fontes, metadados (SEO e Open Graph), script anti-"piscar" de tema |
 | `src/components/Hero.tsx` | Hero dividido: texto à esquerda, foto com faixas orbitando à direita |
 | `src/components/Skills.tsx` | Bento de competências |
 | `src/components/ProjectsPlayer.tsx` | Coverflow + barra de player com autoplay (Client Component) |
+| `src/components/ProjectModal.tsx` | Modal de detalhes do projeto (`<dialog>` nativo): resumo do README, linguagens em % e últimos commits |
+| `src/lib/readme.ts` | Resume o README em texto simples (verificação: `node src/lib/readme.check.mjs`) |
 | `src/components/Contact.tsx` | Chamada de contato com os canais |
 | `src/components/Reveal.tsx` | Revelação suave ao entrar na tela |
 

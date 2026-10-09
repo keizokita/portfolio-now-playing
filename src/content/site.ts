@@ -6,6 +6,10 @@ export type Project = {
   description: string;
   stack: string[];
   url: string;
+  // Preenchidos pela API do GitHub; ausentes nos projetos de reserva.
+  summary?: string;
+  languages?: { name: string; percent: number }[];
+  commits?: { sha: string; message: string; date: string; url: string }[];
 };
 
 export type Skill = {
