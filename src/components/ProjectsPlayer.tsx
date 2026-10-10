@@ -229,7 +229,11 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
         </div>
       </div>
 
-      <ProjectModal project={detail} onClose={() => setDetail(null)} />
+      <ProjectModal
+        project={detail}
+        variant={detail ? VARIANTS[projects.indexOf(detail) % 3] : undefined}
+        onClose={() => setDetail(null)}
+      />
     </div>
   );
 }
