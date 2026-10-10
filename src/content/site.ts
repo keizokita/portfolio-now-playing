@@ -64,6 +64,14 @@ export const site = {
   // Para mostrar ou esconder um repositório, adicione ou remova esse topic no GitHub.
   githubTopic: "portfolio",
 
+  // Imagem da capa de cada projeto, pelo nome do repositório (arquivos em /public/covers, quadrados).
+  // A capa tinge a imagem com o tom dela; repositório sem imagem mostra só os anéis.
+  covers: {
+    "portfolio-now-playing": "/covers/portfolio-now-playing.webp",
+    "tcc-project-back": "/covers/tcc-project-back.webp",
+    watchlytics: "/covers/watchlytics.webp",
+  } as Record<string, string>,
+
   // Usados enquanto o GitHub não estiver configurado, se a API falhar ou se nenhum repositório tiver o topic.
   // A descrição daqui também substitui a do GitHub quando o nome do repositório bate.
   fallbackProjects: [
