@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useState, useSyncExternalStore, type KeyboardEvent } from "react";
 import { animate, motion, useMotionValue, useReducedMotion, useTransform } from "motion/react";
 import { GithubLogo, Info, Pause, Play, SkipBack, SkipForward } from "@phosphor-icons/react";
-import type { Project } from "@/content/site";
+import Image from "next/image";
+import { site, type Project } from "@/content/site";
 import { Equalizer } from "./Equalizer";
 import { ProjectModal } from "./ProjectModal";
 import { VinylRings } from "./VinylRings";
@@ -123,6 +124,19 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
               transition={reduce ? { duration: 0 } : SPRING}
             >
               <div className="relative flex h-[260px] w-full items-end overflow-hidden bg-[var(--cbg)] p-5 text-[var(--cfg)]">
+                {site.covers[p.name] && (
+                  <>
+                    {/* luminosity: a imagem entra só com a luz; a cor vem do fundo da capa (trava de cor única). */}
+                    <Image
+                      src={site.covers[p.name]}
+                      alt=""
+                      fill
+                      sizes="260px"
+                      className="object-cover opacity-90 mix-blend-luminosity"
+                    />
+                    <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[var(--cbg)] from-10% to-transparent to-50%" />
+                  </>
+                )}
                 <VinylRings className="absolute -right-[54px] -top-[54px] size-[230px] opacity-30" />
                 {a === 0 && (
                   <span
