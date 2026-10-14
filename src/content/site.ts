@@ -46,10 +46,10 @@ export const site = {
 
   // Faixas que flutuam ao redor da foto no hero. A primeira vira o card grande do player.
   heroTracks: [
-    { abbr: "Jv", name: "Java", role: "Linguagem principal" },
-    { abbr: "Ng", name: "Angular", role: "Interfaces" },
-    { abbr: "Sb", name: "Spring Boot", role: "APIs REST" },
-  ],
+    { abbr: "Jv", name: "Java", role: "Linguagem principal", logo: "java" },
+    { abbr: "Ng", name: "Angular", role: "Interfaces", logo: "angular" },
+    { abbr: "Sb", name: "Spring Boot", role: "APIs REST", logo: "springboot" },
+  ] as { abbr: string; name: string; role: string; logo?: TechLogo }[],
 
   featuredSkill: {
     title: "Java e Angular",

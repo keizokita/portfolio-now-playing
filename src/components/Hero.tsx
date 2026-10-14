@@ -1,8 +1,9 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import { DownloadSimple, Play, Pause, SkipBack, SkipForward } from "@phosphor-icons/react/ssr";
-import { site } from "@/content/site";
+import { site, type TechLogo } from "@/content/site";
 import { Equalizer } from "./Equalizer";
+import { TechIcon } from "./TechIcon";
 
 type Vars = CSSProperties & Record<`--${string}`, string>;
 
@@ -96,7 +97,7 @@ export function Hero() {
         >
           <div className="flex items-center gap-3">
             <span className="grid size-10 flex-none place-items-center rounded-thumb bg-accent font-mono text-[13px] font-bold text-ink">
-              {main.abbr}
+              {main.logo ? <TechIcon logo={main.logo} /> : main.abbr}
             </span>
             <div>
               <p className="text-sm font-semibold">{main.name}</p>
@@ -121,6 +122,7 @@ export function Hero() {
 
 function MiniTrack({
   abbr,
+  logo,
   name,
   role,
   className,
@@ -128,6 +130,7 @@ function MiniTrack({
   d,
 }: {
   abbr: string;
+  logo?: TechLogo;
   name: string;
   role: string;
   className: string;
@@ -140,7 +143,7 @@ function MiniTrack({
       style={{ "--r": r, "--d": d } as Vars}
     >
       <span className="grid size-10 flex-none place-items-center rounded-thumb border border-line bg-surface-2 font-mono text-[13px] font-bold">
-        {abbr}
+        {logo ? <TechIcon logo={logo} /> : abbr}
       </span>
       <div>
         <p className="text-sm font-semibold">{name}</p>
