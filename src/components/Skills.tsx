@@ -1,6 +1,7 @@
 import { site, type Skill } from "@/content/site";
 import { Equalizer } from "./Equalizer";
 import { Reveal } from "./Reveal";
+import { TechIcon } from "./TechIcon";
 import { VinylRings } from "./VinylRings";
 
 export function Skills() {
@@ -65,7 +66,7 @@ function SkillTile({ skill }: { skill: Skill }) {
           aria-hidden="true"
           className="grid size-14 flex-none place-items-center rounded-thumb bg-accent font-mono text-[15px] font-bold text-ink"
         >
-          {skill.abbr}
+          {skill.logo ? <TechIcon logo={skill.logo} className="size-7" /> : skill.abbr}
         </span>
       </article>
     );
@@ -77,7 +78,7 @@ function SkillTile({ skill }: { skill: Skill }) {
         aria-hidden="true"
         className="grid size-11 place-items-center rounded-thumb border border-line bg-surface-2 font-mono text-sm font-bold"
       >
-        {skill.abbr}
+        {skill.logo ? <TechIcon logo={skill.logo} /> : skill.abbr}
       </span>
       <div>
         <h3 className="text-lg font-semibold">{skill.name}</h3>
@@ -86,3 +87,4 @@ function SkillTile({ skill }: { skill: Skill }) {
     </article>
   );
 }
+
