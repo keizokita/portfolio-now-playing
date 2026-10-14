@@ -1,6 +1,7 @@
 import { EnvelopeSimple, GithubLogo, LinkedinLogo } from "@phosphor-icons/react/ssr";
 import { site } from "@/content/site";
 import { Reveal } from "./Reveal";
+import { NewTab } from "./NewTab";
 
 export function Contact() {
   return (
@@ -27,6 +28,7 @@ export function Contact() {
             <GithubLogo size={20} weight="bold" aria-hidden="true" />
             GitHub
             <span className="font-mono text-[13px] font-normal text-muted">@{site.github}</span>
+            <NewTab />
           </a>
           <a
             href={`https://www.linkedin.com/in/${site.linkedin}`}
@@ -36,6 +38,7 @@ export function Contact() {
           >
             <LinkedinLogo size={20} weight="bold" aria-hidden="true" />
             LinkedIn
+            <NewTab />
           </a>
         </div>
       </Reveal>

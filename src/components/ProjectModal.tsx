@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ArrowSquareOut, GitCommit, X } from "@phosphor-icons/react";
 import { site, type Project } from "@/content/site";
+import { NewTab } from "./NewTab";
 
 // Fatias da barra de linguagens: mesmo âmbar em luminosidades diferentes (trava de cor única).
 const SHADES = [100, 65, 40, 22];
@@ -85,6 +86,7 @@ export function ProjectModal({
                 >
                   Abrir no GitHub
                   <ArrowSquareOut size={15} weight="bold" aria-hidden="true" />
+                  <NewTab />
                 </a>
               </div>
             </header>
@@ -132,6 +134,7 @@ export function ProjectModal({
                             {c.sha} · {c.date && timeAgo(c.date)}
                           </span>
                         </span>
+                        <NewTab />
                       </a>
                     </li>
                   ))}
