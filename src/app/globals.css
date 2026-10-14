@@ -178,6 +178,8 @@ body {
   .eq i:nth-child(3) { animation-delay: -0.7s; }
   .eq i:nth-child(4) { animation-delay: -0.2s; }
   .eq[data-paused="true"] i { animation-play-state: paused; }
+  /* Pausa do player = pausa de todo movimento decorativo da página. */
+  html[data-playing="false"] :is(.eq i, .float-card, .spin-slow) { animation-play-state: paused; }
 }
 
 /* Com a modal aberta, a página de trás não rola. */

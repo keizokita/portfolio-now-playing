@@ -56,7 +56,15 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
   // Autoplay ligado por padrão, desligado com "reduzir movimento" até a pessoa apertar play.
   // Pausa com a modal aberta, com o mouse ou o foco do teclado nas capas (para a capa não trocar
   // no meio da leitura) e quando o player sai da tela.
-  const playing = (userPlaying ?? !reduce) && !detail && !hovering && !focused && inView;
+  // Escolha da pessoa no botão de play/pause (as pausas automáticas abaixo não contam).
+  const wantsPlay = userPlaying ?? !reduce;
+  const playing = wantsPlay && !detail && !hovering && !focused && inView;
+
+  // O botão do player controla todo o movimento decorativo da página (equalizadores, cards e anel do hero):
+  // pausar aqui congela tudo via html[data-playing="false"] em globals.css.
+  useEffect(() => {
+    document.documentElement.dataset.playing = String(wantsPlay);
+  }, [wantsPlay]);
 
   // Progresso da "faixa" fica num motion value: anima sem re-renderizar o React.
   const progress = useMotionValue(0);
@@ -189,11 +197,11 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
           </button>
           <button
             type="button"
-            onClick={() => setUserPlaying(!(userPlaying ?? !reduce))}
-            aria-label={playing ? "Pausar" : "Tocar"}
+            onClick={() => setUserPlaying(!wantsPlay)}
+            aria-label={wantsPlay ? "Pausar" : "Tocar"}
             className="press grid size-14 place-items-center rounded-full bg-text text-bg"
           >
-            {playing ? <Pause size={20} weight="fill" /> : <Play size={20} weight="fill" />}
+            {wantsPlay ? <Pause size={20} weight="fill" /> : <Play size={20} weight="fill" />}
           </button>
           <button
             type="button"
