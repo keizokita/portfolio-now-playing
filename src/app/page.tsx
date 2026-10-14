@@ -13,9 +13,17 @@ export default function Home() {
       <div aria-hidden="true" className="orb -left-[220px] top-[1250px] size-[560px]" />
       <div aria-hidden="true" className="orb -right-[240px] top-[2250px] size-[620px]" />
 
+      {/* Atalho de teclado: aparece só ao receber foco. */}
+      <a
+        href="#conteudo"
+        className="sr-only rounded-full bg-solid px-5 py-3 text-sm font-semibold text-text focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50"
+      >
+        Pular para o conteúdo
+      </a>
+
       <div className="relative mx-auto max-w-[1240px] px-4 pb-10 pt-5">
         <Nav />
-        <main>
+        <main id="conteudo" tabIndex={-1} className="outline-none">
           <Hero />
           <Skills />
           <Projects />
