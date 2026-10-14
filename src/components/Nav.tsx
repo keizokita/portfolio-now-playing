@@ -13,7 +13,7 @@ export function Nav() {
       <a
         href="#topo"
         aria-label={site.name}
-        className="flex h-11 items-center gap-2.5 whitespace-nowrap font-mono text-[15px] font-bold"
+        className="flex h-11 min-w-11 items-center justify-center gap-2.5 whitespace-nowrap font-mono text-[15px] font-bold sm:justify-start"
       >
         <Equalizer />
         <span className="hidden sm:inline">{site.name}</span>
