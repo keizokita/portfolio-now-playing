@@ -179,3 +179,6 @@ body {
   .eq i:nth-child(4) { animation-delay: -0.2s; }
   .eq[data-paused="true"] i { animation-play-state: paused; }
 }
+
+/* Com a modal aberta, a página de trás não rola. */
+html:has(dialog[open]) { overflow: hidden; }
