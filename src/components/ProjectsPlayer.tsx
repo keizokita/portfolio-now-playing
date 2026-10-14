@@ -7,7 +7,6 @@ import Image from "next/image";
 import { site, type Project } from "@/content/site";
 import { Equalizer } from "./Equalizer";
 import { ProjectModal } from "./ProjectModal";
-import { VinylRings } from "./VinylRings";
 
 const TRACK_SECONDS = 6;
 const VARIANTS = ["cv-a", "cv-b", "cv-c"] as const;
@@ -137,7 +136,6 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
                     <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[var(--cbg)] from-10% to-transparent to-50%" />
                   </>
                 )}
-                <VinylRings className="absolute -right-[54px] -top-[54px] size-[230px] opacity-30" />
                 {a === 0 && (
                   <span
                     aria-hidden="true"

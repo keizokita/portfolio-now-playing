@@ -65,7 +65,7 @@ export const site = {
   githubTopic: "portfolio",
 
   // Imagem da capa de cada projeto, pelo nome do repositório (arquivos em /public/covers, quadrados).
-  // A capa tinge a imagem com o tom dela; repositório sem imagem mostra só os anéis.
+  // A capa tinge a imagem com o tom dela; repositório sem imagem mostra só a cor da capa.
   covers: {
     "portfolio-now-playing": "/covers/portfolio-now-playing.webp",
     "tcc-project-back": "/covers/tcc-project-back.webp",
