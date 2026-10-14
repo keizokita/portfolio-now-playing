@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useState, useSyncExternalStore, type KeyboardEvent } from "react";
-import { animate, motion, useMotionValue, useReducedMotion, useTransform } from "motion/react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type KeyboardEvent } from "react";
+import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransform } from "motion/react";
 import {
   Code,
   FilmSlate,
@@ -49,9 +49,13 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
   const [userPlaying, setUserPlaying] = useState<boolean | null>(null);
   const [detail, setDetail] = useState<Project | null>(null);
   const [hovering, setHovering] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(rootRef, { amount: 0.3 });
   // Autoplay ligado por padrão, desligado com "reduzir movimento" até a pessoa apertar play.
-  // Pausa com a modal aberta e com o mouse sobre as capas, para a capa não trocar no meio do clique.
-  const playing = (userPlaying ?? !reduce) && !detail && !hovering;
+  // Pausa com a modal aberta, com o mouse ou o foco do teclado nas capas (para a capa não trocar
+  // no meio da leitura) e quando o player sai da tela.
+  const playing = (userPlaying ?? !reduce) && !detail && !hovering && !focused && inView;
 
   // Progresso da "faixa" fica num motion value: anima sem re-renderizar o React.
   const progress = useMotionValue(0);
@@ -98,7 +102,7 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
   const CurrentIcon = ICONS[site.icons[current.name] ?? "Code"];
 
   return (
-    <div className="flex flex-col gap-8">
+    <div ref={rootRef} className="flex flex-col gap-8">
       <div
         role="group"
         aria-roledescription="carrossel"
@@ -106,6 +110,8 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
         onKeyDown={onKeyDown}
         onPointerEnter={(e) => e.pointerType === "mouse" && setHovering(true)}
         onPointerLeave={() => setHovering(false)}
+        onFocus={() => setFocused(true)}
+        onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setFocused(false)}
         className="relative h-[400px] overflow-hidden [perspective:1400px]"
       >
         {projects.map((p, i) => {
