@@ -12,6 +12,9 @@ export type Project = {
   commits?: { sha: string; message: string; date: string; url: string }[];
 };
 
+/** Ícones do Phosphor disponíveis para a miniatura do player (a lista vive em ProjectsPlayer). */
+export type ProjectIcon = "FilmSlate" | "GraduationCap" | "VinylRecord" | "Code";
+
 export type Skill = {
   /** Posição no bento. A grade espera exatamente estas 7 áreas: f, a, b, c, d, e, g. */
   area: "f" | "a" | "b" | "c" | "d" | "e" | "g";
@@ -71,6 +74,13 @@ export const site = {
     "tcc-project-back": "/covers/tcc-project-back.webp",
     watchlytics: "/covers/watchlytics.webp",
   } as Record<string, string>,
+
+  // Ícone da miniatura na barra do player, pelo nome do repositório. Sem ícone definido = "Code".
+  icons: {
+    watchlytics: "FilmSlate",
+    "tcc-project-back": "GraduationCap",
+    "portfolio-now-playing": "VinylRecord",
+  } as Record<string, ProjectIcon>,
 
   // Usados enquanto o GitHub não estiver configurado, se a API falhar ou se nenhum repositório tiver o topic.
   // A descrição daqui também substitui a do GitHub quando o nome do repositório bate.

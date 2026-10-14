@@ -2,15 +2,28 @@
 
 import { useCallback, useEffect, useState, useSyncExternalStore, type KeyboardEvent } from "react";
 import { animate, motion, useMotionValue, useReducedMotion, useTransform } from "motion/react";
-import { GithubLogo, Info, Pause, Play, SkipBack, SkipForward } from "@phosphor-icons/react";
+import {
+  Code,
+  FilmSlate,
+  GithubLogo,
+  GraduationCap,
+  Info,
+  Pause,
+  Play,
+  SkipBack,
+  SkipForward,
+  VinylRecord,
+  type Icon,
+} from "@phosphor-icons/react";
 import Image from "next/image";
-import { site, type Project } from "@/content/site";
+import { site, type Project, type ProjectIcon } from "@/content/site";
 import { Equalizer } from "./Equalizer";
 import { ProjectModal } from "./ProjectModal";
 
 const TRACK_SECONDS = 6;
 const VARIANTS = ["cv-a", "cv-b", "cv-c"] as const;
 const SPRING = { type: "spring", stiffness: 100, damping: 20 } as const;
+const ICONS = { FilmSlate, GraduationCap, VinylRecord, Code } satisfies Record<ProjectIcon, Icon>;
 
 // Distância entre capas: menor no celular.
 const mobileQuery = "(max-width: 767px)";
@@ -82,6 +95,7 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
   }
 
   const current = projects[active];
+  const CurrentIcon = ICONS[site.icons[current.name] ?? "Code"];
 
   return (
     <div className="flex flex-col gap-8">
@@ -187,8 +201,18 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
         <div className="flex min-w-0 flex-[999_1_300px] items-center gap-3.5">
           <div
             aria-hidden="true"
-            className={`${VARIANTS[active % 3]} size-12 flex-none rounded-thumb border border-line bg-[var(--cbg)]`}
-          />
+            className={`${VARIANTS[active % 3]} grid size-12 flex-none place-items-center rounded-thumb border border-line bg-[var(--cbg)] text-[var(--cfg)]`}
+          >
+            {/* key: o ícone novo entra com fade a cada troca de projeto. */}
+            <motion.span
+              key={current.name}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: reduce ? 0 : 0.25 }}
+            >
+              <CurrentIcon size={24} weight="duotone" />
+            </motion.span>
+          </div>
           <div className="flex min-w-0 flex-1 flex-col gap-2">
             {/* Anuncia a troca de projeto para leitores de tela só quando o autoplay está parado */}
             <p aria-live={playing ? "off" : "polite"} className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
