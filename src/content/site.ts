@@ -23,7 +23,11 @@ export type Skill = {
   name: string;
   abbr: string;
   role: string;
+  /** Logo no lugar da sigla (veja TechIcon). Sem logo = sigla. */
+  logo?: TechLogo;
 };
+
+export type TechLogo = "java" | "angular" | "springboot" | "typescript" | "git" | "docker" | "database";
 
 export const site = {
   name: "Leonardo Kita",
@@ -55,12 +59,12 @@ export const site = {
   },
 
   skills: [
-    { area: "a", variant: "glass", name: "Spring Boot", abbr: "Sb", role: "APIs REST com JPA e Hibernate" },
-    { area: "b", variant: "glass", name: "TypeScript", abbr: "TS", role: "Front-end tipado" },
-    { area: "c", variant: "glass", name: "Bancos SQL", abbr: "SQL", role: "SQL Server, Oracle e PostgreSQL" },
-    { area: "d", variant: "glass", name: "Git", abbr: "Gt", role: "Code review e trabalho em equipe" },
+    { area: "a", variant: "glass", name: "Spring Boot", abbr: "Sb", role: "APIs REST com JPA e Hibernate", logo: "springboot" },
+    { area: "b", variant: "glass", name: "TypeScript", abbr: "TS", role: "Front-end tipado", logo: "typescript" },
+    { area: "c", variant: "glass", name: "Bancos SQL", abbr: "SQL", role: "SQL Server, Oracle e PostgreSQL", logo: "database" },
+    { area: "d", variant: "glass", name: "Git", abbr: "Gt", role: "Code review e trabalho em equipe", logo: "git" },
     { area: "e", variant: "inverse", name: "IA no desenvolvimento", abbr: "IA", role: "Análise de código, refatoração e testes" },
-    { area: "g", variant: "wide", name: "Docker e CI/CD", abbr: "Dk", role: "Ambientes e deploy automatizado" },
+    { area: "g", variant: "wide", name: "Docker e CI/CD", abbr: "Dk", role: "Ambientes e deploy automatizado", logo: "docker" },
   ] satisfies Skill[],
 
   // Topic do GitHub que marca os repositórios exibidos no portfólio (até 6, os atualizados por último primeiro).
