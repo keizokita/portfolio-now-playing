@@ -19,6 +19,7 @@ import Image from "next/image";
 import { site, type Project, type ProjectIcon } from "@/content/site";
 import { Equalizer } from "./Equalizer";
 import { ProjectModal } from "./ProjectModal";
+import { NewTab } from "./NewTab";
 
 const TRACK_SECONDS = 6;
 const VARIANTS = ["cv-a", "cv-b", "cv-c"] as const;
@@ -253,6 +254,7 @@ export function ProjectsPlayer({ projects }: { projects: Project[] }) {
           >
             <GithubLogo size={18} weight="bold" aria-hidden="true" />
             Abrir repositório
+            <NewTab />
           </a>
         </div>
       </div>
