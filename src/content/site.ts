@@ -35,7 +35,7 @@ export const site = {
   // Até 20 palavras (regra da taste-skill para o hero).
   tagline: "Construo sistemas em Java e Angular e uso IA para modernizar código legado com mais testes.",
   available: true,
-  email: "keizokato@gmail.com",
+  email: "keizokita1@gmail.com",
   // Usuário do GitHub. Enquanto for "seu-usuario", a página usa os projetos de exemplo abaixo.
   github: "keizokita",
   linkedin: "leonardo-keizo-kita",
